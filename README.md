@@ -31,6 +31,9 @@ SL11 Abbey Wood      5m
 - **Background:** a dim, slow orange glow drifting behind the text, played
   natively by the bar (set `BG_ANIM = false` in `main.js` for plain grey).
 
+Companion to [busybar-boat-timetable](https://github.com/alexseminoisok/busybar-boat-timetable)
+(same display engine, Uber Boat departures from North Greenwich Pier).
+
 ## Controls
 
 | Input | Action |

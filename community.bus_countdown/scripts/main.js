@@ -62,6 +62,10 @@ var THEMES = [
   { name: "red",   main: "#FF3A2EFF", dest: "#CC2A20FF", dim: "#7A1913FF" }
 ];
 var BG_COLOR = "#1C1C1CFF";
+// Animated background: a dim, slow orange glow (anims/bg_glow.anim, made by
+// build_bg_anim.py). The firmware plays it natively in a loop, so it costs no
+// draw requests. false = plain dark grey.
+var BG_ANIM = true;
 
 var themeIdx = 0;
 try {
@@ -122,6 +126,8 @@ function text(id, s, x, y, color, width, scroll, repeat) {
 var BG = { id: "bg", type: "rectangle", display: "front", align: "top_left",
   x: 0, y: 0, width: W, height: H, fill: "solid", fill_colors: [BG_COLOR],
   border_width: 0, z_index: 0 };
+var BG_GLOW = { id: "bganim", type: "animation", display: "front", align: "top_left",
+  x: 0, y: 0, path: "anims/bg_glow.anim", loop: true, z_index: 1 };
 
 // Deletes an element on the device: same id/type/payload, with display_until
 // in the past (the canvas service destroys it; type changes are rejected).
@@ -240,7 +246,7 @@ function rebindPage() {
 }
 
 function buildFrame() {
-  var els = [BG];
+  var els = BG_ANIM ? [BG, BG_GLOW] : [BG];
   if (!page || buses.length === 0) {
     var nw = textWidth(STOP_NAME);
     els.push(text("r0", " ", 0, ROW_Y[0]));

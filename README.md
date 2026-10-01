@@ -28,6 +28,8 @@ SL11 Abbey Wood      5m
   dissolve — set `TRANSITION` in `main.js`).
 - **Colours:** amber, green, cyan, pink, red — press **Start** to switch; the
   bar remembers your pick.
+- **Background:** a dim, slow orange glow drifting behind the text, played
+  natively by the bar (set `BG_ANIM = false` in `main.js` for plain grey).
 
 ## Controls
 
@@ -77,8 +79,10 @@ any arrivals-only stand.
 
 ```
 community.bus_countdown/
+├── anims/     bg_glow.anim (animated background)
 ├── appmeta/   manifest.json, icon_front_8x8.png, icon_back_11x11.png
 └── scripts/   main.js
+build_bg_anim.py           # regenerates anims/bg_glow.anim (AMP = strength)
 build_icons.py             # regenerates the Apps-menu icons
 install_bus_countdown.sh   # curl installer
 ```
@@ -98,6 +102,10 @@ install_bus_countdown.sh   # curl installer
   top. The fade ramps a solid overlay's `opacity` 0→100→0; the dissolve
   covers random pixels instead. The next pair is swapped in underneath while
   fully covered, then the overlay is removed. ~15–20 ms per frame on the bar.
+- **Background:** a looping `animation` element (`bg_glow.anim`, 10 s at
+  12 fps, "bicycle1" format via the firmware's `scripts/seq2anim.py`) under
+  the text. The bar plays it itself, so it costs no draw requests — measured
+  17 → 19 ms per draw with it running.
 - **Draw:** `POST http://127.0.0.1/api/display/draw` (loopback skips auth),
   sending only changed elements. Destinations/routes change only on page
   turns — re-sending a text element restarts its scroll — while the minutes

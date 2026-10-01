@@ -2,7 +2,7 @@
     "format_version": 1,
     "id": "community.bus_countdown",
     "name": "Bus Timetable",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "description": "Live TfL bus departures, North Greenwich",
     "author": "alex",
     "heap_size_kib": 256,
